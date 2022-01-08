@@ -1,4 +1,4 @@
-﻿package org.bukkit.command.defaults;
+package org.bukkit.command.defaults;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -25,8 +25,8 @@ public class ReloadCommand extends BukkitCommand
         }
         /** 
          * Reload has tendency to be unsafe, and may cause server instabilities,
-         * due to limitations in Java, as reloading just disable/re-enable all 
-         * every plugin which is unsafe!,best solution it to reload the configs only.
+         * due to it disable/re-enabling plugins which theres no safe/efficient 
+         * way of doing so, best solution it to reload every plugin(s) config instead. 
          * => USE AT YOUR OWN RISK <=
          * Reload feature re-enabled. ~Jason437 07/01/2022.
          */        
