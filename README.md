@@ -1,6 +1,7 @@
-# Kotoza Server 1.2.5 R5.1 +183
-A Custom fork that SurvivalTekkit404 runs on, that focuses on performance & compatibility.
+# Kotoza Server 1.2.5
+Kotoza is modified version of CraftBukkit using FML with major improvements & optimizations
+that SurvivalTekkit404 currently runs on.
 
-# To-do 
-  * Clense the src of dumbster fire "Tweaks".
+# To-do
+  * Search & re-write classes that were fucked with when I retired.
 
