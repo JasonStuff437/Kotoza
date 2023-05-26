@@ -5,49 +5,41 @@ import org.bukkit.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
-public class PluginsCommand extends BukkitCommand
-{
-
-
-	public PluginsCommand(final String name) {
+public class PluginsCommand extends BukkitCommand {
+    public PluginsCommand(final String name) {
         super(name);
         this.description = "Gets a list of plugins running on the server";
         this.usageMessage = "/plugins";
         this.setPermission("bukkit.command.plugins");
         this.setAliases(Arrays.asList("pl"));
     }
-    
+
     @Override
     public boolean execute(final CommandSender sender, final String currentAlias, final String[] args) {
         if (!this.testPermission(sender)) {
             return true;
         }
-        sender.sendMessage("Plugins " + this.getplugins());
+        sender.sendMessage("Plugins " + getPlugins());
         return true;
     }
-    /**
-     * We executed command "What plugins do you have?", received list of Forge Mods & Plugins, and so
-     * updated this piece of code to exlude forge fml mods. Only lists ( Bukkit plugins ) which is good that's what we want!
-     **/
-    private String getplugins() {
-        final StringBuffer plugins = new StringBuffer();
-        final Plugin[] arr$ = Bukkit.getPluginManager().getPlugins();
-        int countplugins = 0;
-        for (final Plugin plugin : arr$) {
-        	if (countplugins != 0 && !plugin.getName().contains("mod_")) {
-              plugins.append(ChatColor.WHITE);
-        			plugins.append(", ");
-        	}
-            if (!plugin.getName().contains("mod_")) {
-                plugins.append(ChatColor.WHITE);
-                plugins.append(plugin.isEnabled() ? ChatColor.GREEN : ChatColor.RED);  
-                plugins.append(plugin.getDescription().getName());
-            	  ++countplugins;
 
+    private String getPlugins() {
+        final StringBuilder plugins = new StringBuilder();
+        final Plugin[] pluginArr = Bukkit.getPluginManager().getPlugins();
+        int countPlugins = 0;
+        for (final Plugin plugin : pluginArr) {
+            if (plugin.getName().startsWith("mod_")) {
+                continue;
             }
+            if (countPlugins > 0) {
+                plugins.append(ChatColor.WHITE).append(", ");
+            }
+            plugins.append(plugin.isEnabled() ? ChatColor.GREEN : ChatColor.RED);
+            plugins.append(plugin.getDescription().getName());
+            countPlugins++;
         }
-        return "(" + countplugins + "): " + plugins.toString().trim();
+        return "(" + countPlugins + "): " + plugins.toString().trim();
     }
 }
- 
